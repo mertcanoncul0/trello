@@ -34,7 +34,6 @@ RUN apk add --no-cache curl
 
 # Copy built application and dependencies
 COPY --from=base /app/package.json ./
-COPY --from=base /app/bun.lockb ./
 COPY --from=base /app/.next ./.next
 COPY --from=base /app/public ./public
 COPY --from=base /app/next.config.js ./
@@ -43,7 +42,7 @@ COPY --from=base /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=base /app/node_modules/@prisma ./node_modules/@prisma
 
 # Install only production dependencies
-RUN bun install --frozen-lockfile --production
+RUN bun install --production
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
