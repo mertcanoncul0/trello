@@ -51,7 +51,7 @@ export const handler = async (data: InputType): Promise<ReturnType> => {
                 order: newOrder,
                 cards: {
                     createMany: {
-                        data: listToCopy.cards.map((card) => ({
+                        data: listToCopy.cards.map((card: { title: string; description: string | null; order: number }) => ({
                             title: card.title,
                             description: card.description,
                             order: card.order

@@ -20,7 +20,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     let cards;
 
     try {
-        const transaction = items.map((card) => (
+        const transaction = items.map((card: { id: string; order: number; listId: string }) => (
             db.card.update({
                 where: {
                     id: card.id,
