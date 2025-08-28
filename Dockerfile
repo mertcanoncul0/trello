@@ -14,6 +14,9 @@ RUN bun install --frozen-lockfile
 # Copy source code
 COPY . .
 
+# Generate Prisma client
+RUN bunx prisma generate
+
 # Build the application
 RUN bun run build
 
@@ -36,6 +39,8 @@ COPY --from=base /app/.next ./.next
 COPY --from=base /app/public ./public
 COPY --from=base /app/next.config.js ./
 COPY --from=base /app/middleware.ts ./
+COPY --from=base /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=base /app/node_modules/@prisma ./node_modules/@prisma
 
 # Install only production dependencies
 RUN bun install --frozen-lockfile --production
